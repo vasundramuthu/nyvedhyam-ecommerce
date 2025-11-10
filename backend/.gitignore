@@ -1,5 +1,10 @@
-node_modules/
+# Dependency directories
+/backend/node_modules
+/frontend/node_modules
+
+# Environment variables (CRITICAL: Keeps your keys private)
 .env
-.vercel
-# Ignore sensitive environment variables file
-.env
+
+# Logs and build artifacts
+*.log
+npm-debug.log*
