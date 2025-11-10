@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Nyvedhyam</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Importing Poppins and Playfair Display for a refined look */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        /* Custom Colors based on your logo */
+        :root {
+            --color-ny-red: #d11322; /* Primary Red */
+            --color-ny-orange: #f59e0b; /* Accent Orange */
+            --color-ny-cream: #e5e5d1; /* Light Neutral */
+            --color-ny-brown: #9b6c4b; /* Secondary Brown */
+        }
+
+        .ny-red-bg { background-color: var(--color-ny-red); }
+        .ny-red-text { color: var(--color-ny-red); }
+        .ny-red-border { border-color: var(--color-ny-red); }
+        .ny-red-hover:hover { background-color: #b71822; }
+
+        .ny-brown-text { color: var(--color-ny-brown); }
+
+        .font-playfair { font-family: 'Playfair Display', serif; }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-xl sticky top-0 z-50 rounded-b-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <a href="index3.html" class="flex-shrink-0 text-3xl font-playfair ny-red-text font-bold">
+                        Nyvedhyam
+                    </a>
+                    <!-- Desktop Menu -->
+                    <div class="hidden md:ml-10 md:flex md:space-x-8">
+                        <a href="index3.html#home" class="text-gray-600 hover:ny-red-text px-3 py-2 text-base font-medium transition duration-150">Home</a>
+                        <a href="index3.html#products" class="text-gray-600 hover:ny-red-text px-3 py-2 text-base font-medium transition duration-150">Products</a>
+                        <a href="index3.html#reviews" class="text-gray-600 hover:ny-red-text px-3 py-2 text-base font-medium transition duration-150">Reviews</a>
+                        <a href="index3.html#about" class="text-gray-600 hover:ny-red-text px-3 py-2 text-base font-medium transition duration-150">About</a>
+                        <a href="#" class="ny-red-text border-b-2 ny-red-border px-3 py-2 text-base font-medium transition duration-150">Contact</a>
+                    </div>
+                </div>
+                <!-- Icons & Buttons -->
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <div class="relative">
+                            <button class="relative p-2 text-gray-700 hover:ny-red-text transition duration-150">
+                                <i class="fas fa-shopping-cart text-xl"></i>
+                                <span class="absolute -top-1 -right-1 ny-red-bg text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">0</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="ml-4 hidden sm:flex items-center space-x-4">
+                        <button class="px-4 py-2 ny-red-bg text-white rounded-xl shadow-lg ny-red-hover transition duration-200 font-semibold">Login</button>
+                    </div>
+                    <!-- Mobile Menu Button -->
+                    <div class="ml-3 relative md:hidden">
+                        <button id="mobileMenuButton" class="text-gray-900 hover:ny-red-text p-2 rounded-lg transition duration-150">
+                            <i class="fas fa-bars text-2xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu (Collapsible) -->
+        <div id="mobileMenu" class="md:hidden hidden bg-gray-50 border-t border-gray-200">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="index3.html#home" class="text-gray-700 hover:ny-red-text block px-3 py-2 rounded-md text-base font-medium transition duration-150">Home</a>
+                <a href="index3.html#products" class="text-gray-700 hover:ny-red-text block px-3 py-2 rounded-md text-base font-medium transition duration-150">Products</a>
+                <a href="index3.html#reviews" class="text-gray-700 hover:ny-red-text block px-3 py-2 rounded-md text-base font-medium transition duration-150">Reviews</a>
+                <a href="index3.html#about" class="text-gray-700 hover:ny-red-text block px-3 py-2 rounded-md text-base font-medium transition duration-150">About</a>
+                <a href="#" class="ny-red-text bg-red-50 block px-3 py-2 rounded-md text-base font-medium transition duration-150">Contact</a>
+                <button class="w-full text-left px-4 py-2 ny-red-bg text-white rounded-lg ny-red-hover font-semibold mt-2">Login</button>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main Content Area -->
+    <main class="flex-grow">
+        <section class="py-16 md:py-24">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h1 class="text-5xl md:text-6xl font-extrabold text-gray-900 mb-4 font-playfair">
+                        Talk to Our Team
+                    </h1>
+                    <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                        We're here to answer your questions, listen to feedback, and discuss partnership opportunities.
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-10 lg:gap-16 items-start">
+                    <!-- Contact Form -->
+                    <div class="bg-white p-6 sm:p-10 rounded-2xl shadow-xl border border-gray-100">
+                        <h2 class="text-3xl font-semibold mb-8 ny-brown-text">Send Us a Message</h2>
+                        <form id="contactForm" class="space-y-6">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                                <input type="text" id="name" name="name" required class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm p-3 focus:ring-ny-red focus:ny-red-border transition duration-150">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                                <input type="email" id="email" name="email" required class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm p-3 focus:ring-ny-red focus:ny-red-border transition duration-150">
+                            </div>
+                            <div>
+                                <label for="subject" class="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+                                <input type="text" id="subject" name="subject" required class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm p-3 focus:ring-ny-red focus:ny-red-border transition duration-150">
+                            </div>
+                            <div>
+                                <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                                <textarea id="message" name="message" rows="5" required class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm p-3 focus:ring-ny-red focus:ny-red-border transition duration-150"></textarea>
+                            </div>
+                            <button type="submit" id="submitButton" class="w-full ny-red-bg text-white py-3 px-4 rounded-xl font-semibold ny-red-hover transition duration-200 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ny-red">
+                                Send Message
+                            </button>
+                        </form>
+                        <div id="statusMessage" class="hidden mt-6 p-4 text-center rounded-lg font-medium transition duration-300"></div>
+                    </div>
+
+                    <!-- Contact Details -->
+                    <div class="space-y-8">
+                        <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-xl border border-gray-100">
+                            <h2 class="text-3xl font-semibold mb-6 ny-brown-text">Our Details</h2>
+                            <ul class="space-y-6">
+                                <li class="flex items-start">
+                                    <i class="fas fa-map-marker-alt text-2xl ny-red-text mr-4 mt-1"></i>
+                                    <div>
+                                        <p class="font-semibold text-lg text-gray-900">Visit Us</p>
+                                        <p class="text-gray-600 leading-relaxed">Nyvedhyam, No.6 Daya sathan street, near onion mundy, Nerkundram, Chennai-600107, Tamil Nadu, India</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-phone-alt text-2xl ny-red-text mr-4 mt-1"></i>
+                                    <div>
+                                        <p class="font-semibold text-lg text-gray-900">Call Us</p>
+                                        <p class="text-gray-600">+91 7373010008</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-envelope text-2xl ny-red-text mr-4 mt-1"></i>
+                                    <div>
+                                        <p class="font-semibold text-lg text-gray-900">Email Us</p>
+                                        <p class="text-gray-600">nyvedhyam2023@gmail.com</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Embedded Map Placeholder (Since we can't use live maps) -->
+                        <div class="bg-gray-100 rounded-2xl overflow-hidden shadow-xl border border-gray-200 h-64">
+                            <div class="h-full w-full flex items-center justify-center text-gray-500 text-lg font-medium">
+                                <i class="fas fa-map-marked-alt mr-2"></i> Location Map Placeholder
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-3xl font-playfair ny-red-text font-bold mb-4">Nyvedhyam</h3>
+                    <p class="text-gray-400 mb-4">Authentic homemade pastes for the modern kitchen, made with tradition and love.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-200"><i class="fab fa-facebook-f text-lg"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-200"><i class="fab fa-instagram text-lg"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-200"><i class="fab fa-twitter text-lg"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-200"><i class="fab fa-whatsapp text-lg"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-xl mb-4 text-gray-200">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index3.html#home" class="text-gray-400 hover:text-white transition duration-200">Home</a></li>
+                        <li><a href="index3.html#products" class="text-gray-400 hover:text-white transition duration-200">Products</a></li>
+                        <li><a href="index3.html#reviews" class="text-gray-400 hover:text-white transition duration-200">Reviews</a></li>
+                        <li><a href="index3.html#about" class="text-gray-400 hover:text-white transition duration-200">About Us</a></li>
+                        <li><a href="#" class="ny-red-text transition duration-200">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-xl mb-4 text-gray-200">Customer Service</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-200">Shipping Info</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-200">Returns & Refunds</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-200">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-200">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-xl mb-4 text-gray-200">Newsletter</h4>
+                    <p class="text-gray-400 mb-4">Subscribe for recipes and special offers.</p>
+                    <div class="flex">
+                        <input type="email" placeholder="Your email" class="flex-1 px-4 py-3 bg-gray-700 border border-gray-600 rounded-l-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-ny-red">
+                        <button class="ny-red-bg text-white px-4 py-3 rounded-r-xl ny-red-hover font-semibold transition duration-200">Sign Up</button>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-10 pt-8 text-center">
+                <p class="text-gray-500 text-sm">© 2024 Nyvedhyam. All rights reserved. Crafted with <i class="fas fa-heart ny-red-text mx-1"></i>.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <div id="user-id-display" class="fixed bottom-4 left-4 text-xs p-2 bg-white shadow-lg rounded-lg text-gray-600 border border-gray-200">Initializing...</div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Set Firebase logging level for debugging
+        setLogLevel('debug');
+
+        // --- Global Variables and Configuration ---
+        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        let db;
+        let auth;
+        let userId = 'unknown';
+
+        // --- Mobile Navigation Toggle ---
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // --- Firebase Initialization and Authentication ---
+        async function initFirebase() {
+            try {
+                const app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+                
+                // Sign in using the custom token or anonymously
+                if (initialAuthToken) {
+                    await signInWithCustomToken(auth, initialAuthToken);
+                } else {
+                    await signInAnonymously(auth);
+                }
+                
+                // Update userId on auth state change
+                onAuthStateChanged(auth, user => {
+                    if (user) {
+                        userId = user.uid;
+                        document.getElementById('user-id-display').textContent = 'User ID: ' + userId;
+                    } else {
+                         document.getElementById('user-id-display').textContent = 'User ID: Anonymous (temp)';
+                    }
+                });
+
+            } catch (error) {
+                console.error("Firebase initialization error:", error);
+                const status = document.getElementById('statusMessage');
+                status.textContent = 'Error initializing application. Database functions disabled.';
+                status.className = 'block mt-6 p-4 text-center text-red-700 bg-red-100 rounded-md';
+                status.classList.remove('hidden');
+            }
+        }
+        
+        // --- Contact Form Submission Logic ---
+        document.getElementById('contactForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const submitButton = document.getElementById('submitButton');
+            const statusMessage = document.getElementById('statusMessage');
+            
+            // Show loading state
+            statusMessage.classList.remove('hidden', 'text-green-700', 'bg-green-100', 'text-red-700', 'bg-red-100');
+            statusMessage.textContent = 'Submitting message...';
+            statusMessage.className = 'block mt-6 p-4 text-center text-blue-700 bg-blue-100 rounded-md';
+            submitButton.disabled = true;
+            submitButton.textContent = 'Sending...';
+
+            const form = event.target;
+            const data = {
+                name: form.name.value,
+                email: form.email.value,
+                subject: form.subject.value,
+                message: form.message.value,
+                timestamp: new Date().toISOString(),
+                submittedBy: userId 
+            };
+
+            try {
+                if (!db || !auth.currentUser) {
+                    throw new Error("Application not fully initialized or user not authenticated.");
+                }
+                
+                // Store the contact message in the public collection
+                const messagesCollection = collection(db, `artifacts/${appId}/public/data/contact_messages`);
+                await addDoc(messagesCollection, data);
+
+                statusMessage.textContent = 'Your message has been sent successfully! We will be in touch soon.';
+                statusMessage.className = 'block mt-6 p-4 text-center text-green-700 bg-green-100 rounded-md';
+                form.reset();
+
+            } catch (error) {
+                console.error("Error submitting contact form: ", error);
+                statusMessage.textContent = 'Failed to send message. Please check the console for details.';
+                statusMessage.className = 'block mt-6 p-4 text-center text-red-700 bg-red-100 rounded-md';
+            } finally {
+                // Restore button state
+                submitButton.disabled = false;
+                submitButton.textContent = 'Send Message';
+            }
+        });
+
+        // Start the application
+        initFirebase();
+    </script>
+</body>
+</html>

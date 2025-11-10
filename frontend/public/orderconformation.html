@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmed! - Nyvedhyam</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Poppins', sans-serif; }
+        .ny-red-bg { background-color: #d11322; }
+        .ny-red-hover:hover { background-color: #b71822; }
+    </style>
+</head>
+<body class="bg-slate-50 flex items-center justify-center min-h-screen p-4">
+
+    <div class="bg-white rounded-lg p-8 md:p-12 text-center shadow-xl max-w-lg w-full">
+        <i class="fas fa-check-circle text-green-500 text-6xl md:text-8xl mb-6 animate-pulse"></i>
+        <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Order Confirmed!</h1>
+        <p class="text-gray-600 text-lg mb-6">Your payment was successful. We'll send a confirmation email with all the details shortly.</p>
+        
+        <div class="bg-slate-100 p-6 rounded-lg mb-6 text-left border border-gray-200">
+            <h2 class="text-xl font-semibold mb-3 text-gray-800">Order Summary</h2>
+            <div class="space-y-2">
+                <div class="flex justify-between items-center pb-2 mb-2">
+                    <span class="text-gray-700">Order Number:</span>
+                    <span id="order-number" class="font-semibold text-gray-900">#NYV-${Math.floor(Math.random() * 900000) + 100000}</span>
+                </div>
+                <div class="flex justify-between items-center border-b border-gray-300 pb-2">
+                    <span class="text-gray-700">Estimated Delivery:</span>
+                    <span class="font-semibold text-gray-900">5-7 Business Days</span>
+                </div>
+            </div>
+
+            <div id="confirmation-items" class="mt-4 space-y-2"></div>
+            
+            <div class="flex justify-between font-bold text-xl text-gray-900 mt-4 pt-4 border-t-2 border-dashed border-gray-400">
+                <span>Total:</span>
+                <span id="confirmation-total" class="ny-red-text">₹0.00</span>
+            </div>
+        </div>
+        
+        <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
+            <a href="index3.html" class="w-full ny-red-bg text-white py-3 px-4 rounded-lg font-semibold ny-red-hover transition duration-200">
+                Continue Shopping
+            </a>
+            <a href="#" class="w-full bg-gray-200 text-gray-800 py-3 px-4 rounded-lg font-semibold hover:bg-gray-300 transition duration-200">
+                View Order History
+            </a>
+        </div>
+    </div>
+
+    <script>
+        (async () => {
+            const orderDetails = JSON.parse(localStorage.getItem('lastOrderDetails'));
+            const confirmationItemsContainer = document.getElementById('confirmation-items');
+            const confirmationTotalElement = document.getElementById('confirmation-total');
+
+            if (orderDetails && orderDetails.items && orderDetails.total) {
+                // Display each item in the order
+                orderDetails.items.forEach(item => {
+                    const itemElement = document.createElement('div');
+                    itemElement.className = 'flex justify-between text-gray-700 text-base';
+                    itemElement.innerHTML = `
+                        <span>${item.name} x ${item.quantity}</span>
+                        <span>₹${item.price * item.quantity}</span>
+                    `;
+                    confirmationItemsContainer.appendChild(itemElement);
+                });
+
+                // Display the total price
+                confirmationTotalElement.textContent = `₹${orderDetails.total}`;
+                
+                // Clear the temporary order data after displaying it
+                localStorage.removeItem('lastOrderDetails');
+            } else {
+                // Fallback message if no order data is found
+                confirmationItemsContainer.innerHTML = '<p class="text-gray-600 text-center">No order details found. Please check your email for confirmation.</p>';
+            }
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Nyvedhyam</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
+        :root { --color-ny-red: #d11322; }
+        .ny-red-bg { background-color: var(--color-ny-red); }
+        .ny-red-text { color: var(--color-ny-red); }
+        .ny-red-hover:hover { background-color: #b71822; }
+    </style>
+</head>
+<body class="bg-slate-50">
+
+    <section class="py-16 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row gap-8">
+            <div class="md:w-1/2 p-8 ny-red-bg text-white rounded-xl shadow-lg">
+                <div class="flex items-center space-x-2 mb-6">
+                    <span class="text-3xl font-bold">N</span>
+                    <h1 class="text-2xl font-semibold">Nyvedhyam</h1>
+                </div>
+                <h2 class="text-3xl font-bold mb-4">Price Summary</h2>
+                <div id="price-summary-container" class="space-y-4 text-white text-opacity-80"></div>
+                <div class="border-t border-white border-opacity-30 pt-4 mt-6">
+                    <div class="flex justify-between items-center text-lg font-bold">
+                        <span>Grand Total:</span>
+                        <span id="grand-total-price">₹0.00</span>
+                    </div>
+                </div>
+            </div>
+            <div class="md:w-1/2 p-8 bg-slate-50 rounded-xl shadow-lg">
+                <div class="text-center mb-6">
+                    <h1 class="text-4xl font-bold text-gray-900 mb-4">Enter Your Details</h1>
+                    <p class="text-gray-600">Please provide your information for shipping and billing.</p>
+                </div>
+                <form id="customer-info-form" class="space-y-6">
+                    <div>
+                        <label for="full-name" class="block text-sm font-medium text-gray-700">Full Name</label>
+                        <input type="text" id="full-name" name="name" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-3 focus:ring-red-500 focus:border-red-500" required>
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                        <input type="email" id="email" name="email" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-3 focus:ring-red-500 focus:border-red-500" required>
+                    </div>
+                    <div>
+                        <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-3 focus:ring-red-500 focus:border-red-500" required pattern="[0-9]{10}" title="Phone number must be 10 digits.">
+                    </div>
+                    <div>
+                        <label for="address" class="block text-sm font-medium text-gray-700">Full Address</label>
+                        <textarea id="address" name="address" rows="3" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-3 focus:ring-red-500 focus:border-red-500" required></textarea>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="city" class="block text-sm font-medium text-gray-700">City</label>
+                            <input type="text" id="city" name="city" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-3 focus:ring-red-500 focus:border-red-500" required>
+                        </div>
+                        <div>
+                            <label for="pincode" class="block text-sm font-medium text-gray-700">Pincode</label>
+                            <input type="text" id="pincode" name="pincode" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-3 focus:ring-red-500 focus:border-red-500" required pattern="[0-9]{6}" title="Pincode must be 6 digits.">
+                        </div>
+                    </div>
+                    <button type="submit" class="w-full ny-red-bg text-white py-3 px-4 rounded-lg font-semibold ny-red-hover transition duration-200">
+                        Proceed to Payment
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <script>
+    // --- UTILITY FUNCTION: Display the cart summary ---
+    function displayCartSummary() {
+        // NOTE: If you are getting a cart-is-empty error, temporarily set a mock cart in localStorage 
+        // to ensure a total amount is calculated for testing.
+        const cartItems = JSON.parse(localStorage.getItem('nyvedhyamCart')) || [];
+        const container = document.getElementById('price-summary-container');
+        const grandTotalElement = document.getElementById('grand-total-price');
+        const shippingFee = 40;
+
+        if (cartItems.length === 0) {
+            container.innerHTML = '<p class="text-gray-200">Your cart is empty.</p>';
+            grandTotalElement.textContent = '₹0.00';
+            return;
+        }
+
+        let subtotal = 0;
+        let itemsHtml = '';
+
+        cartItems.forEach(item => {
+            const itemTotal = item.price * item.quantity;
+            subtotal += itemTotal;
+            itemsHtml += `
+                <div class="flex justify-between items-center text-white text-opacity-90">
+                    <div class="flex-1">
+                        <p class="font-semibold">${item.name}</p>
+                        <p class="text-sm">Quantity: ${item.quantity}</p>
+                    </div>
+                    <span class="font-bold">₹${itemTotal.toFixed(2)}</span>
+                </div>
+            `;
+        });
+
+        const grandTotal = subtotal + shippingFee;
+
+        itemsHtml += `
+            <div class="border-t border-white border-opacity-30 pt-4 mt-2">
+                <div class="flex justify-between items-center text-white text-opacity-90">
+                    <span>Subtotal:</span>
+                    <span class="font-bold">₹${subtotal.toFixed(2)}</span>
+                </div>
+                <div class="flex justify-between items-center text-white text-opacity-90 mt-1">
+                    <span>Delivery Fee:</span>
+                    <span class="font-bold">₹${shippingFee.toFixed(2)}</span>
+                </div>
+            </div>
+        `;
+
+        container.innerHTML = itemsHtml;
+        grandTotalElement.textContent = `₹${grandTotal.toFixed(2)}`;
+    }
+
+    document.addEventListener('DOMContentLoaded', displayCartSummary);
+
+    // --- RAZORPAY PAYMENT LOGIC ---
+    
+    const form = document.getElementById('customer-info-form');
+    
+    // 🛑 CRITICAL FIX: Use the local URL for local testing as seen in your screenshot.
+    const API_URL = 'http://localhost:3000/api'; 
+    // For live deployment: const API_URL = 'https://api.nyvedhyam.co.in/api'; 
+    
+    // Your PUBLIC LIVE Key ID (rzp_live_...)
+    const RAZORPAY_KEY_ID = 'rzp_live_RQEIruhmG47X1D'; 
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // 1. Get Customer Details from the form
+        const name = document.getElementById('full-name').value;
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+        const address = document.getElementById('address').value;
+        const city = document.getElementById('city').value;
+        const pincode = document.getElementById('pincode').value;
+
+        if (!name || !email || !phone || !address || !city || !pincode) {
+            alert('All customer details fields are required.');
+            return;
+        }
+
+        const customerDetails = { name, email, phone, address, city, pincode };
+        localStorage.setItem('customerDetails', JSON.stringify(customerDetails));
+
+        const cartItems = JSON.parse(localStorage.getItem('nyvedhyamCart')) || [];
+        const shippingFee = 40;
+        const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        const totalAmountRupees = subtotal + shippingFee;
+
+        // 🛑 CRITICAL FIX: Convert Rupees to Paise and ensure it's an integer
+        const totalAmountPaise = Math.round(totalAmountRupees * 100); 
+
+        if (totalAmountPaise <= 0) {
+            alert('Your cart is empty or total amount is invalid. Please add items.');
+            return;
+        }
+
+        // --- Step 1: Create an order on the backend ---
+        try {
+            console.log("Attempting to create order on backend with Grand Total (Paise):", totalAmountPaise);
+            
+            const response = await fetch(`${API_URL}/create-order`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    amount: totalAmountPaise, // Send amount as integer in paise
+                    items: cartItems,
+                    customerDetails: customerDetails 
+                })
+            });
+
+            const orderData = await response.json();
+
+            // Check for server-side errors
+            if (orderData.error || response.status !== 200) {
+                console.error("Order Creation Failed. Server Response:", orderData);
+                throw new Error(orderData.error || `Server responded with status ${response.status}`);
+            }
+
+            // --- Step 2: Open the Razorpay Checkout modal (Redirection) ---
+            const options = {
+                key: RAZORPAY_KEY_ID, 
+                amount: orderData.amount, // Amount must be in PAiSE from the server response
+                currency: orderData.currency,
+                name: 'Nyvedhyam',
+                description: 'Food Order Payment',
+                order_id: orderData.id, // The essential Order ID from the backend
+                
+                // --- Step 3: Handler for successful payment ---
+                handler: async function (response) {
+                    const verificationResponse = await fetch(`${API_URL}/verify-payment`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            razorpay_order_id: response.razorpay_order_id,
+                            razorpay_payment_id: response.razorpay_payment_id,
+                            razorpay_signature: response.razorpay_signature
+                        })
+                    });
+                    
+                    const verificationResult = await verificationResponse.json();
+                    
+                    if (verificationResult.success) {
+                        alert('Payment successful! Your order has been placed.');
+                        localStorage.removeItem('nyvedhyamCart'); 
+                        window.location.href = 'orderconformation.html';
+                    } else {
+                        alert('Payment accepted, but failed server verification. Please contact support with Payment ID: ' + response.razorpay_payment_id);
+                        window.location.href = 'orderconformation.html?status=verification_failed'; 
+                    }
+                },
+                
+                // Prefill details
+                prefill: {
+                    name: name,
+                    email: email,
+                    contact: phone
+                },
+                theme: {
+                    color: '#d11322'
+                }
+            };
+
+            const rzp = new window.Razorpay(options);
+            
+            rzp.on('payment.failed', function (response){
+                alert("Payment Failed. Please try again.");
+                console.error("Payment Failed:", response.error.code, response.error.description);
+            });
+            
+            rzp.open(); // This line opens the payment modal
+
+        } catch (error) {
+            console.error('Payment Initiation Error:', error);
+            alert('An error occurred during payment. Please ensure your backend is running correctly. See console for details.');
+        }
+    });
+
+    // This is your BACKEND CODE (e.g., Node.js with Express)
+const nodemailer = require('nodemailer');
+// const Razorpay = require('razorpay'); // Assuming you have this for verification
+// const crypto = require('crypto'); // Assuming you have this for verification
+
+
+// 1. Configure your email sender
+const transporter = nodemailer.createTransport({
+    service: 'gmail', // Or 'SendGrid', 'Mailgun', or your own SMTP server
+    auth: {
+        user: 'nyvedhyam123@gmail.com', // ⬅️ The email address you want to send *from*
+        pass: 'zaqr fzfv qzht gbyl' // ⬅️ Generate an App Password if using Gmail
+    }
+});
+
+
+// 2. Function to send the email
+async function sendOrderEmail(customerDetails, orderDetails, cartItems) {
+    const receivingEmail = 'nyvedhyam123@gamil.com'; // ⬅️ The email you want the order alert sent *to*
+    
+    // Format the items into a nice HTML list
+    const itemsHtml = cartItems.map(item => `
+        <li>${item.name} (x${item.quantity}) - ₹${(item.price * item.quantity).toFixed(2)}</li>
+    `).join('');
+
+    const mailOptions = {
+        from: '"Nyvedhyam Orders" nyvedhyam123@gmail.com',
+        to: receivingEmail,
+        subject: `🎉 NEW ORDER #${orderDetails.orderId} - Total: ₹${(orderDetails.amount / 100).toFixed(2)}`,
+        html: `
+            <p>A new order has been placed!</p>
+            <hr>
+            <h3>Customer Details:</h3>
+            <ul>
+                <li><strong>Name:</strong> ${customerDetails.name}</li>
+                <li><strong>Email:</strong> ${customerDetails.email}</li>
+                <li><strong>Phone:</strong> ${customerDetails.phone}</li>
+                <li><strong>Address:</strong> ${customerDetails.address}, ${customerDetails.city}, Pincode: ${customerDetails.pincode}</li>
+            </ul>
+            <hr>
+            <h3>Order Details (Razorpay):</h3>
+            <ul>
+                <li><strong>Order ID:</strong> ${orderDetails.orderId}</li>
+                <li><strong>Payment ID:</strong> ${orderDetails.paymentId}</li>
+                <li><strong>Total Amount:</strong> ₹${(orderDetails.amount / 100).toFixed(2)}</li>
+            </ul>
+            <hr>
+            <h3>Items Ordered:</h3>
+            <ul>
+                ${itemsHtml}
+            </ul>
+        `
+    };
+
+    try {
+        await transporter.sendMail(mailOptions);
+        console.log('Order confirmation email sent successfully.');
+        // OPTIONAL: Send a copy to the customer as well!
+        // You would create a second mailOptions object here.
+    } catch (error) {
+        console.error('Failed to send order email:', error);
+    }
+}
+
+
+// 3. Integrate into your /verify-payment route (Express example)
+app.post('/api/verify-payment', async (req, res) => {
+    // ... Your Razorpay signature verification logic ...
+    
+    // Assuming verification is successful:
+    if (signatureIsVerified) {
+        // Retrieve the saved customer details and cart items 
+        // which you should have persisted in Step 1 (/create-order)
+        const orderRecord = await database.findOrder(req.body.razorpay_order_id); 
+        
+        // Pass the collected data to the email function
+        await sendOrderEmail(
+            orderRecord.customerDetails, 
+            {
+                orderId: req.body.razorpay_order_id,
+                paymentId: req.body.razorpay_payment_id,
+                amount: orderRecord.amount // Amount in paise from your saved order record
+            },
+            orderRecord.items // The items array
+        );
+
+        // Send success back to the frontend
+        res.status(200).json({ success: true, message: 'Payment verified and email sent.' });
+    } else {
+        // Send failure back to the frontend
+        res.status(400).json({ success: false, message: 'Payment verification failed.' });
+    }
+});
+    </script>
+</body>
+</html>
