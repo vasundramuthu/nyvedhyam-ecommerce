@@ -8,7 +8,7 @@ const Razorpay = require('razorpay');
 const crypto = require('crypto');
 const mongoose = require('mongoose');
 
-// Models
+// Models (Assuming these files are correctly linked in your project)
 const Customer = require('./models/customer');
 const Order = require('./models/order');
 const Product = require('./models/product');
@@ -18,8 +18,9 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const DB_URI = process.env.DB_URI;
 
-// Allowed Origins
+// 🛑 CRITICAL FIX: CONSOLIDATED Allowed Origins List
 const allowedOrigins = [
+  'https://nyvedhyam-ecommerce.onrender.com', // ⬅️ REQUIRED LIVE RENDER URL
   'https://nyvedhyam.co.in',
   'https://www.nyvedhyam.co.in',
   'http://localhost:3000',
@@ -29,9 +30,11 @@ const allowedOrigins = [
 
 app.use(cors({
   origin: function(origin, callback) {
+    // Allow requests with no origin (like Postman or local file access)
     if (!origin || allowedOrigins.includes(origin)) {
       return callback(null, true);
     }
+    // Block requests from unapproved domains
     return callback(new Error('Not allowed by CORS'), false);
   }
 }));
@@ -44,17 +47,17 @@ mongoose.connect(DB_URI)
 // Middleware
 app.use(bodyParser.json());
 
-// ✅ Serve static frontend files correctly
+// Serve static frontend files correctly (relative path to 'frontend/public' from the 'backend' folder)
 const publicPath = path.join(__dirname, '../frontend/public');
 app.use(express.static(publicPath));
 console.log('Serving static from:', publicPath);
 
-// ✅ HOME PAGE
+// HOME PAGE
 app.get('/', (req, res) => {
   res.sendFile(path.join(publicPath, 'index3.html'));
 });
 
-// ✅ PAYMENT PAGE
+// PAYMENT PAGE
 app.get('/payment', (req, res) => {
   res.sendFile(path.join(publicPath, 'payment.html'));
 });
@@ -74,7 +77,7 @@ const razorpay = new Razorpay({
   key_secret: process.env.RAZORPAY_KEY_SECRET
 });
 
-// Save Customer
+// Save Customer (API endpoint)
 app.post('/api/save-details', async (req, res) => {
   try {
     const { name, email, phone, address, city, pincode } = req.body;
@@ -88,16 +91,17 @@ app.post('/api/save-details', async (req, res) => {
     await customer.save();
     res.json({ success: true });
   } catch (err) {
+    console.error("Customer Save Error:", err);
     res.status(500).json({ success: false });
   }
 });
 
-// Create Razorpay Order
+// Create Razorpay Order (API endpoint)
 app.post('/api/create-order', async (req, res) => {
   try {
     const { amount, items, customerDetails } = req.body;
     const options = {
-      amount: Number(amount),
+      amount: Number(amount), // Amount in paise
       currency: 'INR',
       receipt: `receipt_${Date.now()}`
     };
@@ -105,7 +109,7 @@ app.post('/api/create-order', async (req, res) => {
 
     const newOrder = new Order({
       razorpay_order_id: order.id,
-      amount: amount / 100,
+      amount: amount / 100, // Save in Rupees
       items,
       customerDetails,
       status: 'created'
@@ -114,11 +118,12 @@ app.post('/api/create-order', async (req, res) => {
 
     res.json(order);
   } catch (err) {
+    console.error("Order Creation Error:", err);
     res.status(500).json({ error: 'Order failed' });
   }
 });
 
-// Verify Payment
+// Verify Payment (API endpoint)
 app.post('/api/verify-payment', async (req, res) => {
   const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
 
@@ -126,11 +131,24 @@ app.post('/api/verify-payment', async (req, res) => {
   hmac.update(`${razorpay_order_id}|${razorpay_payment_id}`);
 
   if (hmac.digest('hex') === razorpay_signature) {
-    const order = await Order.findOne({ razorpay_order_id });
-    order.status = 'paid';
-    order.razorpay_payment_id = razorpay_payment_id;
-    await order.save();
-    res.json({ success: true });
+    try {
+      const order = await Order.findOne({ razorpay_order_id });
+      if (order) {
+        order.status = 'paid';
+        order.razorpay_payment_id = razorpay_payment_id;
+        await order.save();
+        
+        // You would typically send the order email here!
+        // await sendOrderEmail(order.customerDetails, order); 
+
+        res.json({ success: true, message: "Payment verified, order updated." });
+      } else {
+        res.status(404).json({ success: false, message: 'Order not found.' });
+      }
+    } catch (err) {
+      console.error("Verification DB Error:", err);
+      res.status(500).json({ success: false, message: 'Server verification failed.' });
+    }
   } else {
     res.status(400).json({ success: false, message: 'Invalid signature' });
   }
