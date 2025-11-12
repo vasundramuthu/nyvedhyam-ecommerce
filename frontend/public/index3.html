@@ -151,9 +151,20 @@
                     <button onclick="toggleMobileMenu()" class="text-gray-900 hover:text-red-600 p-2 self-end">
                         <i class="fas fa-bars text-xl"></i>
                     </button>
-                    <button type="button" onclick="window.location.href='payment.html'" class="w-full ny-red-bg text-white py-3 px-4 rounded-lg ny-red-hover transition duration-200 mt-2">
-                        Proceed to Checkout
-                    </button>
+                   <div class="flex justify-center px-4">
+  <div class="flex justify-center">
+      <button 
+        type="button" 
+        onclick="window.location.href='payment.html'"
+        class="w-full sm:w-auto max-w-[220px] ny-red-bg text-white font-medium py-2 px-5 rounded-md ny-red-hover transition duration-200 text-sm sm:text-base"
+      >
+        Proceed to Checkout
+      </button>
+    </div>
+  </div>
+</div>
+</div>
+
                 </div>
             </div>
         </div>
@@ -169,42 +180,61 @@
     </div>
 </nav>
 
-    <div id="cart-sidebar" class="fixed right-0 top-0 h-full w-full sm:w-80 bg-white shadow-xl transform translate-x-full transition-transform duration-300 z-50 overflow-y-auto">
-        <div class="p-4 border-b">
-            <div class="flex justify-between items-center">
-                <h3 class="text-lg font-semibold text-gray-900">Your Cart</h3>
-                <button onclick="toggleCart()" class="text-red-600 hover:text-red-800">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-        </div>
-        <div id="cart-items" class="p-4 overflow-y-auto h-96">
-            <p class="text-center text-gray-600">Your cart is empty</p>
-        </div>
-        <div class="absolute bottom-0 w-full bg-white border-t p-4">
-            <div class="flex justify-between items-center mb-4">
-                <span class="font-semibold">Total:</span>
-                <span id="cart-total" class="font-bold text-red-600">₹0.00</span>
-            </div>
-            <button type="button" onclick="window.location.href='payment.html'" class="w-full ny-red-bg text-white py-3 px-4 rounded-lg ny-red-hover transition duration-200">
-                           Proceed to Checkout
-                        </button>
-        </div>
+    <div 
+  id="cart-sidebar" 
+  class="fixed right-0 top-0 h-full w-full sm:w-80 bg-white shadow-xl transform translate-x-full transition-transform duration-300 z-50 overflow-y-auto"
+>
+  <div class="p-4 border-b">
+    <div class="flex justify-between items-center">
+      <h3 class="text-lg font-semibold text-gray-900">Your Cart</h3>
+      <button onclick="toggleCart()" class="text-red-600 hover:text-red-800">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+  </div>
+
+  <div id="cart-items" class="p-4 overflow-y-auto h-96">
+    <p class="text-center text-gray-600">Your cart is empty</p>
+  </div>
+
+  <!-- Footer Section -->
+  <div class="absolute bottom-0 w-full bg-white border-t p-4">
+    <div class="flex justify-between items-center mb-4">
+      <span class="font-semibold">Total:</span>
+      <span id="cart-total" class="font-bold text-red-600">₹0.00</span>
     </div>
 
-    <div id="wishlist-sidebar" class="fixed right-0 top-0 h-full w-full sm:w-80 bg-white shadow-xl transform translate-x-full transition-transform duration-300 z-50 overflow-y-auto">
-        <div class="p-4 border-b">
-            <div class="flex justify-between items-center">
-                <h3 class="text-lg font-semibold text-gray-900">Your Wishlist</h3>
-                <button onclick="toggleWishlist()" class="text-red-600 hover:text-red-800">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-        </div>
-        <div id="wishlist-items" class="p-4 overflow-y-auto h-full">
-            <p class="text-center text-gray-600">Your wishlist is empty</p>
-        </div>
+    <!-- ✅ Responsive Checkout Button -->
+    <div class="flex justify-center">
+      <button 
+        type="button" 
+        onclick="window.location.href='payment.html'"
+        class="w-full sm:w-auto max-w-[220px] ny-red-bg text-white font-medium py-2 px-5 rounded-md ny-red-hover transition duration-200 text-sm sm:text-base"
+      >
+        Proceed to Checkout
+      </button>
     </div>
+  </div>
+</div>
+
+<!-- Wishlist Sidebar -->
+<div 
+  id="wishlist-sidebar" 
+  class="fixed right-0 top-0 h-full w-full sm:w-80 bg-white shadow-xl transform translate-x-full transition-transform duration-300 z-50 overflow-y-auto"
+>
+  <div class="p-4 border-b">
+    <div class="flex justify-between items-center">
+      <h3 class="text-lg font-semibold text-gray-900">Your Wishlist</h3>
+      <button onclick="toggleWishlist()" class="text-red-600 hover:text-red-800">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+  </div>
+
+  <div id="wishlist-items" class="p-4 overflow-y-auto h-full">
+    <p class="text-center text-gray-600">Your wishlist is empty</p>
+  </div>
+</div>
 
     <div id="login-modal" class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50 hidden modal-overlay">
         <div class="bg-white rounded-lg p-8 w-96 shadow-lg">
@@ -236,14 +266,25 @@
         </div>
     </div>
 
-    <section id="home" class="relative w-full overflow-hidden" style="height: 1000px;">
-        <div id="hero-slider" class="relative w-full h-full">
-            <img src="s1.jpg" alt="Nyvedhyam Company Profile and Products" class="slider-image object-cover active">
-            
-            <img src="S2.jpg" alt="Nyvedhyam Ready To Cook 2 Easy Steps" class="slider-image object-cover">
-        </div>
+    <section 
+    id="home" 
+    class="relative w-screen min-h-[60vh] md:h-screen overflow-hidden"
+>
+    <div id="hero-slider" class="relative w-full h-full">
+        <img 
+            src="Slide 16_9 - 1.jpg" 
+            alt="Nyvedhyam Company Profile and Products" 
+            class="slider-image w-full h-auto md:h-full object-cover object-center active"
+        >
         
-        </section>
+        <img 
+            src="Slide 16_9 - 10.jpg" 
+            alt="Nyvedhyam Ready To Cook 2 Easy Steps" 
+            class="slider-image w-full h-auto md:h-full object-cover object-center"
+        >
+    </div>
+</section>
+
     <section id="products" class="py-16 bg-slate-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12">
@@ -433,7 +474,7 @@
                 <div class="flex space-x-4">
                     <a href="#" class="text-gray-300 hover:text-white transition duration-150" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
                     <a href="https://www.instagram.com/nyvedhyam?igsh=MWdidDI0ZjZ3bHlkYg==" class="text-gray-300 hover:text-white transition duration-150" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="https://youtube.com/@nyvedhyam?si=Fy3lvhZ4dWL1Tl7I" class="text-gray-300 hover:text-white transition duration-150" aria-label="Youtube"><i class="fab fa-twitter"></i></a>
+                    <a href="https://youtube.com/@nyvedhyam?si=Fy3lvhZ4dWL1Tl7I" class="text-gray-300 hover:text-white transition duration-150" aria-label="Youtube"><i class="fab fa-youtube"></i></a>
                     <a href="https://wa.me/917373010008" class="text-gray-300 hover:text-white transition duration-150" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
@@ -481,34 +522,31 @@
         </div>
 
         <div class="border-t border-gray-700 mt-8 pt-8 text-center flex flex-col justify-center items-center">
-            <div class="flex flex-col items-start text-gray-400 text-sm mb-1">
-    
-    <div class="flex flex-col items-center text-gray-400 text-sm mb-1">
-    
-    <span class="mb-1">Developed by</span>
-    
-    <div class="flex items-center mb-1">
-        <img 
-            src="DEV.jpg" 
-            alt="Developer Photo" 
-            class="w-12 h-12 rounded-full object-cover border border-gray-600"
-        >
-    </div>
+    <div class="flex flex-col items-center text-gray-400 text-sm mb-1"> 
+        
+        <span class="mb-1">Developed by</span>
+        
+        <div class="flex items-center mb-1">
+            <img 
+                src="DEV.jpg" 
+                alt="Developer Photo" 
+                class="w-12 h-12 rounded-full object-cover border border-gray-600"
+            >
+        </div>
 
-    <a 
-        href="https://www.linkedin.com/in/joseph-christy-577893213?utm_source=share_via&utm_content=profile&utm_medium=member_android" 
-        target="_blank" 
-        class="hover:text-white underline transition duration-150" 
-        aria-label="Connect with developer on LinkedIn"
-    >
-        Mr.Joseph Christy.P
-    </a>
-</div>
-         <div class="text-sm text-gray-500 block mx-auto"> 
+        <a 
+            href="https://www.linkedin.com/in/joseph-christy-577893213?utm_source=share_via&utm_content=profile&utm_medium=member_android" 
+            target="_blank" 
+            class="hover:text-white underline transition duration-150" 
+            aria-label="Connect with developer on LinkedIn"
+        >
+            Mr.Joseph Christy.P
+        </a>
+    </div>
+    <div class="text-sm text-gray-500 block mx-auto"> 
         &copy; 2024 Nyvedhyam. All rights reserved.
     </div>
-        </div>
-    </div>
+</div>
 </footer>
     <div id="cart-notification" class="fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg hidden cart-notification z-50">
         <div class="flex items-center">
