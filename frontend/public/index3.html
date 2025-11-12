@@ -12,7 +12,9 @@
         body {
             font-family: 'Poppins', sans-serif;
             scroll-behavior: smooth;
+            overflow-x: hidden; 
         }
+        
 
         /* Custom Colors based on your logo */
         :root {
@@ -110,6 +112,12 @@
         color: #333;
         margin-top: 5px;
     }
+
+    /* Ensures the product card and any images inside it don't exceed the screen width */
+.product-card, .product-card img {
+    max-width: 100%;
+    height: auto;
+}
     </style>
 </head>
 <body class="bg-slate-50">
@@ -330,7 +338,7 @@
                     <div class="flex items-center mb-4">
                         <img class="h-12 w-12 rounded-full object-cover mr-4" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1976&auto=format&fit=crop" alt="Customer Avatar">
                         <div>
-                            <p class="font-semibold text-gray-900">Rajesh Kumar</p>
+                            <p class="font-semibold text-gray-900">Nainika</p>
                             <div class="text-sm text-yellow-400 star-rating">
                                 <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                             </div>
@@ -558,21 +566,21 @@
     <script>
         // Product data with added ratings
         const products = [
-            {
-                id: 1,
-                name: "Mushroom Gravy Paste",
-                price: 190,
-                description: "A quick and easy paste to make a delicious, authentic mushroom gravy in minutes.",
-                serves: 5,
-                weight: "150g",
-                image: "mg.jpg",
-                category: "Gravy",
-                rating: 4.5
-            },
+         //   {
+              //  id: 1,
+              //  name: "Mushroom Gravy Paste",
+              //  price: 190,
+             //description: "A quick and easy paste to make a delicious, authentic mushroom gravy in minutes.",
+            // serves: 5,
+             // weight: "150g",
+                //image: "mg.jpg",
+              //  category: "Gravy",
+               // rating: 4.5
+            //},
             {
                 id: 2,
                 name: "Chicken Chukka Paste",
-                price: 220,
+                price: 199,
                 description: "This paste helps you prepare the classic, spicy South Indian chicken chukka. Just add chicken!",
                 serves: 5,
                 weight: "150g",
@@ -583,7 +591,7 @@
             {
                 id: 3,
                 name: "Vegetable Biriyani Paste",
-                price: 190,
+                price: 175,
                 description: "A fragrant and balanced paste for a rich and flavorful vegetable biriyani.",
                 serves: 5,
                 weight: "150g",
@@ -594,7 +602,7 @@
             {
                 id: 4,
                 name: "Dindigul Biriyani Paste",
-                 price: 200,
+                 price: 179,
                 description: "Get the famous taste of Dindigul biriyani with this specially crafted, spicy paste.",
                 serves: 3,
                 weight: "120g",
@@ -605,7 +613,7 @@
             {
                 id: 5,
                 name: "Mutton Chukka Paste",
-                price: 220,
+                price: 199,
                 description: "The perfect blend of spices for a fiery and flavorful mutton chukka. A must-try!",
                 serves: 5,
                 weight: "150g",
