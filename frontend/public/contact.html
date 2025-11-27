@@ -35,17 +35,14 @@
 </head>
 <body class="bg-gray-50 min-h-screen flex flex-col">
 
-    <!-- Navigation Bar -->
-    <nav class="bg-white shadow-xl sticky top-0 z-50 rounded-b-lg">
+        <nav class="bg-white shadow-xl sticky top-0 z-50 rounded-b-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-                <!-- Logo -->
-                <div class="flex items-center">
+                                <div class="flex items-center">
                     <a href="index3.html" class="flex-shrink-0 text-3xl font-playfair ny-red-text font-bold">
                         Nyvedhyam
                     </a>
-                    <!-- Desktop Menu -->
-                    <div class="hidden md:ml-10 md:flex md:space-x-8">
+                                        <div class="hidden md:ml-10 md:flex md:space-x-8">
                         <a href="index3.html#home" class="text-gray-600 hover:ny-red-text px-3 py-2 text-base font-medium transition duration-150">Home</a>
                         <a href="index3.html#products" class="text-gray-600 hover:ny-red-text px-3 py-2 text-base font-medium transition duration-150">Products</a>
                         <a href="index3.html#reviews" class="text-gray-600 hover:ny-red-text px-3 py-2 text-base font-medium transition duration-150">Reviews</a>
@@ -53,8 +50,7 @@
                         <a href="#" class="ny-red-text border-b-2 ny-red-border px-3 py-2 text-base font-medium transition duration-150">Contact</a>
                     </div>
                 </div>
-                <!-- Icons & Buttons -->
-                <div class="flex items-center">
+                                <div class="flex items-center">
                     <div class="flex-shrink-0">
                         <div class="relative">
                             <button class="relative p-2 text-gray-700 hover:ny-red-text transition duration-150">
@@ -63,11 +59,7 @@
                             </button>
                         </div>
                     </div>
-                    <div class="ml-4 hidden sm:flex items-center space-x-4">
-                        <button class="px-4 py-2 ny-red-bg text-white rounded-xl shadow-lg ny-red-hover transition duration-200 font-semibold">Login</button>
-                    </div>
-                    <!-- Mobile Menu Button -->
-                    <div class="ml-3 relative md:hidden">
+                                        <div class="ml-3 relative md:hidden">
                         <button id="mobileMenuButton" class="text-gray-900 hover:ny-red-text p-2 rounded-lg transition duration-150">
                             <i class="fas fa-bars text-2xl"></i>
                         </button>
@@ -75,8 +67,7 @@
                 </div>
             </div>
         </div>
-        <!-- Mobile Menu (Collapsible) -->
-        <div id="mobileMenu" class="md:hidden hidden bg-gray-50 border-t border-gray-200">
+                <div id="mobileMenu" class="md:hidden hidden bg-gray-50 border-t border-gray-200">
             <div class="px-2 pt-2 pb-3 space-y-1">
                 <a href="index3.html#home" class="text-gray-700 hover:ny-red-text block px-3 py-2 rounded-md text-base font-medium transition duration-150">Home</a>
                 <a href="index3.html#products" class="text-gray-700 hover:ny-red-text block px-3 py-2 rounded-md text-base font-medium transition duration-150">Products</a>
@@ -88,8 +79,7 @@
         </div>
     </nav>
     
-    <!-- Main Content Area -->
-    <main class="flex-grow">
+        <main class="flex-grow">
         <section class="py-16 md:py-24">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-16">
@@ -102,8 +92,7 @@
                 </div>
                 
                 <div class="grid md:grid-cols-2 gap-10 lg:gap-16 items-start">
-                    <!-- Contact Form -->
-                    <div class="bg-white p-6 sm:p-10 rounded-2xl shadow-xl border border-gray-100">
+                                        <div class="bg-white p-6 sm:p-10 rounded-2xl shadow-xl border border-gray-100">
                         <h2 class="text-3xl font-semibold mb-8 ny-brown-text">Send Us a Message</h2>
                         <form id="contactForm" class="space-y-6">
                             <div>
@@ -129,8 +118,7 @@
                         <div id="statusMessage" class="hidden mt-6 p-4 text-center rounded-lg font-medium transition duration-300"></div>
                     </div>
 
-                    <!-- Contact Details -->
-                    <div class="space-y-8">
+                                        <div class="space-y-8">
                         <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-xl border border-gray-100">
                             <h2 class="text-3xl font-semibold mb-6 ny-brown-text">Our Details</h2>
                             <ul class="space-y-6">
@@ -158,11 +146,16 @@
                             </ul>
                         </div>
 
-                        <!-- Embedded Map Placeholder (Since we can't use live maps) -->
-                        <div class="bg-gray-100 rounded-2xl overflow-hidden shadow-xl border border-gray-200 h-64">
-                            <div class="h-full w-full flex items-center justify-center text-gray-500 text-lg font-medium">
-                                <i class="fas fa-map-marked-alt mr-2"></i> Location Map Placeholder
-                            </div>
+                                                <div class="bg-white rounded-2xl overflow-hidden shadow-xl border border-gray-200 h-64">
+                                                        <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3886.7329559405625!2d80.17066861008064!3d13.057580687235061!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5261899e31d3cd%3A0x8ec8c8c504d603e!2sNyvedhyam!5e0!3m2!1sen!2sin!4v1709292800000!5m2!1sen!2sin" 
+                                width="100%" 
+                                height="100%" 
+                                style="border:0;" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
                         </div>
                     </div>
                 </div>
@@ -170,8 +163,7 @@
         </section>
     </main>
     
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12 mt-auto">
+        <footer class="bg-gray-900 text-white py-12 mt-auto">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-4 gap-8">
                 <div>
@@ -213,7 +205,7 @@
                 </div>
             </div>
             <div class="border-t border-gray-700 mt-10 pt-8 text-center">
-                <p class="text-gray-500 text-sm">© 2024 Nyvedhyam. All rights reserved. Crafted with <i class="fas fa-heart ny-red-text mx-1"></i>.</p>
+                <p class="text-gray-500 text-sm">© 2024 Nyvedhyam. All rights reserved.</p>
             </div>
         </div>
     </footer>
